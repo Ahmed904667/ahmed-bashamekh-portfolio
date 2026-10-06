@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+.env*
+!.env.example
+tmp/video-tools/
+tmp/video-models/
+
+# Local tooling and generated review artifacts
+.agents/
+.codex/
+output/
+tmp/
+skills-lock.json

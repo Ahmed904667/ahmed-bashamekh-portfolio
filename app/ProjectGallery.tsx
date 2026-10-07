@@ -114,22 +114,25 @@ function ProjectVisual({ project, inDialog = false, active = false }: { project:
         <Image src="/projects/qabas-logo.png" alt="Qabas Marketing" width={650} height={322} className="qabas-wordmark" />
         <span className="live-badge"><i />Live website</span>
       </div>
-      <div className="project-shot">
-        <div className="browser-chrome"><span className="browser-dots"><i /><i /><i /></span><span>{project.domain}</span><Icon name="arrow-up-right" /></div>
-        <Image src="/projects/qabas-live.jpg" alt={`Actual public ${project.name} website, shown in Arabic`} width={1274} height={717} sizes={inDialog ? "(max-width: 800px) 95vw, 900px" : "(max-width: 700px) 90vw, 55vw"} className="project-screenshot" />
-      </div>
-      <span className="visual-caption">Captured from the live website</span>
+      {inDialog ? <Image src="/projects/qabas-new-ui.jpg" alt="New Qabas website interface, shown in Arabic" width={1905} height={987} sizes="(max-width: 800px) 95vw, 900px" className="qabas-detail-screenshot" /> : <>
+        <div className="qabas-brand-shape" aria-hidden="true"><i /><i /></div>
+        <div className="qabas-ui-sheet">
+          <Image src="/projects/qabas-new-ui.jpg" alt="Qabas’s Arabic homepage with its bold marketing, content and design typography" width={1905} height={987} sizes="(max-width: 700px) 90vw, 55vw" />
+        </div>
+        <span className="qabas-language-note" lang="ar">عربي <span>/</span> English</span>
+      </>}
+      <span className="visual-caption">A bilingual brand experience</span>
     </>;
   }
   if (project.id === "invaro") {
     return <>
       <div className="visual-brand"><span className="invaro-mark">invaro<span className="invaro-mark-dot" /></span><span className="visual-category">A better arrival.</span></div>
-      <div className="invitation-composition" aria-hidden="true">
-        <div className="invitation-back" />
-        <div className="invitation-card"><span>Invitation</span><p>Make every<br />arrival count.</p><div className="invitation-rule" /><div className="invitation-bottom"><span>Invite.<br />Connect.<br />Celebrate.</span><svg viewBox="0 0 60 60" fill="none"><path d="M4 4h18v18H4ZM38 4h18v18H38ZM4 38h18v18H4Z" stroke="currentColor" strokeWidth="4" /><path d="M31 4v11m0 11v12h13v18m-13-7v7m20-25h5v12M7 29h15m-15 3v-6m49 25h-5M29 22h6" stroke="currentColor" strokeWidth="5" /></svg></div></div>
-        <span className="rsvp-chip"><Icon name="check" />RSVP confirmed</span>
-      </div>
-      <span className="visual-caption">Guest journey illustration</span>
+      {inDialog ? <Image src="/projects/invaro-homepage-v2.png" alt="Invaro homepage: Bring people together. Beautifully." width={1669} height={888} sizes="(max-width: 800px) 95vw, 900px" className="invaro-detail-screenshot" /> : <>
+        <div className="invaro-orbit" aria-hidden="true" />
+        <div className="invaro-paper-back" aria-hidden="true" />
+        <div className="invaro-ui-sheet"><Image src="/projects/invaro-homepage-v2.png" alt="Invaro’s invitation and event management homepage" width={1669} height={888} sizes="(max-width: 700px) 90vw, 45vw" /></div>
+        <span className="invaro-journey-caption">Invites <Icon name="arrow-right" /> RSVPs <Icon name="arrow-right" /> Check-ins</span>
+      </>}
     </>;
   }
   return <>
@@ -216,7 +219,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: (project: 
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   function pointerMove(event: PointerEvent<HTMLButtonElement>) {
-    if (project.id === "hassel") return;
+    if (project.id === "hassel" || project.id === "qabas") return;
     if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const shot = previewRef.current?.querySelector<HTMLElement>(".project-shot");
     if (!shot) return;
@@ -226,7 +229,7 @@ function ProjectCard({ project, onOpen }: { project: Project; onOpen: (project: 
     shot.style.transform = `perspective(1200px) rotateX(${-y * 7}deg) rotateY(${x * 8}deg) translateY(5px) scale(1.035)`;
   }
   function resetPreview() { const shot = previewRef.current?.querySelector<HTMLElement>(".project-shot"); if (shot) shot.style.transform = ""; }
-  return <article className={`project-card card-${project.id}`} onPointerEnter={(event) => { if (project.id === "hassel" && event.pointerType !== "touch") setHovered(true); }} onPointerLeave={() => { setHovered(false); setFocused(false); }} onFocusCapture={(event) => { if (project.id === "hassel" && event.target instanceof HTMLElement && event.target.matches(":focus-visible")) setFocused(true); }} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}>
+  return <article className={`project-card card-${project.id}`} onPointerEnter={(event) => { if ((project.id === "hassel" || project.id === "qabas") && event.pointerType !== "touch") setHovered(true); }} onPointerLeave={() => { setHovered(false); setFocused(false); }} onFocusCapture={(event) => { if ((project.id === "hassel" || project.id === "qabas") && event.target instanceof HTMLElement && event.target.matches(":focus-visible")) setFocused(true); }} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}>
     <button type="button" className={`project-preview preview-${project.id}`} ref={previewRef} onClick={() => onOpen(project)} onPointerMove={pointerMove} onPointerLeave={resetPreview} aria-label={`Explore ${project.name} project details`}>
       <ProjectVisual project={project} active={hovered || focused} />
       <span className="project-open"><span>Explore project</span><Icon name="arrow-up-right" /></span>

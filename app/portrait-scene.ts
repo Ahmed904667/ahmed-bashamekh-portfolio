@@ -155,7 +155,7 @@ export async function mountPortrait(stage: HTMLDivElement, canvas: HTMLCanvasEle
     if (!paused && !reduced) waveTime += dt;
     const damping = 1 - Math.exp(-12 * dt);
     gazeX += (targetX - gazeX) * damping; gazeY += (targetY - gazeY) * damping;
-    eyeGroups.forEach((eye, i) => { eye.position.x = eyeOrigins[i].x + gazeX * .035; eye.position.y = eyeOrigins[i].y + gazeY * .019; });
+    eyeGroups.forEach((eye, i) => { eye.position.x = eyeOrigins[i].x + gazeX * .035; eye.position.y = eyeOrigins[i].y + gazeY * .055; });
     if (!paused && !reduced) {
       const cycle = waveTime % 6;
       const envelope = cycle < 2.5 ? Math.sin(Math.PI * cycle / 2.5) ** 2 : 0;
@@ -180,7 +180,8 @@ export async function mountPortrait(stage: HTMLDivElement, canvas: HTMLCanvasEle
     const bounds = stage.getBoundingClientRect();
     const faceX = bounds.left + bounds.width * .56, faceY = bounds.top + bounds.height * .34;
     targetX = THREE.MathUtils.clamp((event.clientX - faceX) / (bounds.width * .65), -1, 1);
-    targetY = THREE.MathUtils.clamp((faceY - event.clientY) / (bounds.height * .65), -1, 1);
+    const verticalRange = event.clientY < faceY ? faceY - bounds.top : bounds.bottom - faceY;
+    targetY = THREE.MathUtils.clamp((faceY - event.clientY) / Math.max(1, verticalRange), -1, 1);
   }
   function center() { targetX = targetY = 0; }
   function preference(event: MediaQueryListEvent) { reduced = event.matches; onReduced(reduced); if (reduced) { center(); eyeGroups.forEach((eye, i) => eye.position.copy(eyeOrigins[i])); wrist.rotation.z = forearm.rotation.z = 0; } loop(); }

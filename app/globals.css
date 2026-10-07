@@ -109,7 +109,7 @@ button,a,summary { outline-offset: 5px; }
 .tech-marquee[data-paused=true] .tech-track,.tech-marquee[data-visible=false] .tech-track,.tech-marquee[data-hidden=true] .tech-track,.tech-marquee:hover .tech-track,.tech-window:focus .tech-track { animation-play-state: paused; }
 @keyframes tech-travel { to { transform: translateX(-50%); } }
 
-.sculpture-shell { position: relative; margin-left: -23px; animation: sculpture-arrive 1s 180ms var(--ease) both; }
+.hero-avatar-shell { position: relative; margin-left: -23px; animation: sculpture-arrive 1s 180ms var(--ease) both; }
 .hero-view-switch { position: absolute; z-index: 3; top: -5px; left: 50%; transform: translateX(-50%); width: max-content; padding: 4px; border: 1px solid #e0e3e9; border-radius: 100px; background: #ffffff85; }
 .hero-view-switch.scene-segment button { min-width: 94px; min-height: 44px; font-size: 12px; }
 .hero-view-switch button > span { margin-left: 6px; opacity: .65; }
@@ -146,7 +146,7 @@ button,a,summary { outline-offset: 5px; }
 .portrait-ready .portrait-fallback { visibility: hidden; }
 .waving-avatar-caption { display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 13px; color: #535d70; margin-top: 16px; }
 .waving-avatar-controls { margin-top: 17px; }
-.hero-video-stage { width: 100%; aspect-ratio: 16 / 9; position: relative; margin-top: 64px; overflow: hidden; background: transparent; }
+.hero-video-stage { width: 100%; aspect-ratio: 16 / 9; position: relative; margin-top: 20px; overflow: hidden; background: transparent; }
 .hero-avatar-video { display: block; width: 100%; height: 100%; object-fit: contain; opacity: 0; }
 .hero-video-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .has-live-gaze .hero-video-poster { visibility: hidden; }
@@ -177,6 +177,19 @@ button,a,summary { outline-offset: 5px; }
 .project-preview { display: block; width: 100%; position: relative; overflow: hidden; aspect-ratio: 1.46; padding: 0; border: 0; border-radius: 22px; text-align: left; color: var(--ink); isolation: isolate; }
 .project-preview:focus-visible { outline-offset: 6px; }
 .preview-hassel { background: #e2e9f2; }
+.hassel-card-video { position: absolute; z-index: 0; inset: 0; overflow: hidden; pointer-events: none; }
+.hassel-card-video video { width: 100%; height: 100%; object-fit: cover; }
+.card-hassel .project-preview { aspect-ratio: 1.6; border: 1px solid #d9d9d3; background: #e6e5e1; box-shadow: 0 5px 18px #242d3d08; transition: transform 350ms var(--ease), box-shadow 350ms var(--ease); }
+.preview-hassel::after { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg, #f5f5f285, transparent 26%, transparent 72%, #f5f5f2e6); pointer-events: none; }
+.preview-hassel .visual-brand { top: 22px; left: 24px; right: 24px; }
+.preview-hassel .hassel-wordmark { font-size: 24px; color: #1c2736; }
+.preview-hassel .live-badge { padding: 7px 10px; border: 1px solid #ffffffa6; border-radius: 100px; color: #43534a; background: #ffffffe0; font-size: 11px; backdrop-filter: blur(8px); }
+.preview-hassel .visual-caption { left: 24px; bottom: 25px; padding: 0; border-radius: 0; background: none; color: #435064; font-size: 12px; font-weight: 500; }
+.preview-hassel .project-open { bottom: 17px; right: 19px; min-height: 44px; padding-inline: 16px; opacity: 1; transform: none; border: 1px solid #ffffffc9; background: #ffffffd9; box-shadow: 0 3px 14px #26334510; backdrop-filter: blur(10px); }
+@media (hover: hover) {
+  .card-hassel .project-preview:hover { transform: translateY(-3px); box-shadow: 0 14px 32px #242d3d16; }
+  .preview-hassel:hover .project-open { color: #3159e8; background: #fff; }
+}
 .preview-qabas { background: #d8dfdf; }
 .preview-invaro { background: #252f56; color: #fff; }
 .preview-sanad { background: #e1e8e4; color: #233c38; }
@@ -250,6 +263,29 @@ button,a,summary { outline-offset: 5px; }
 .project-dialog[open] .dialog-content { animation: dialog-arrive 320ms var(--ease) both; }
 .dialog-topbar { position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 9px 18px 9px 28px; color: #687181; background: #f5f5f2f0; backdrop-filter: blur(14px); font-size: 12px; }
 .modal-visual { position: relative; margin: 0 20px; aspect-ratio: 1.9; overflow: hidden; border-radius: 12px; }
+.hassel-screenshots { margin: 0 20px; padding: 16px; border: 1px solid #dce1e9; border-radius: 18px; background: linear-gradient(135deg, #ffffff, #eaf0f8); box-shadow: 0 8px 28px #263a5b08; }
+.hassel-gallery-heading { display: flex; justify-content: space-between; align-items: center; padding: 0 2px 14px; color: #26344b; font-size: 13px; font-weight: 600; }
+.hassel-gallery-play { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid #d7dfeb; border-radius: 100px; background: #fff; color: #576781; font-size: 10px; font-weight: 500; }
+.hassel-gallery-play .icon { width: 12px; height: 12px; }
+.hassel-screenshot-frame { position: relative; aspect-ratio: 1.6; overflow: hidden; border: 1px solid #182237; border-radius: 10px; background: radial-gradient(ellipse at center, #182338, #0b101b); }
+.hassel-gallery-slide { position: absolute; inset: 0; }
+.hassel-screenshot-frame img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.hassel-screenshot-arrow { position: absolute; top: 50%; z-index: 2; display: grid; width: 42px; height: 42px; place-items: center; border: 1px solid #ffffff40; border-radius: 50%; color: #fff; background: #090e19c9; transform: translateY(-50%); }
+.hassel-screenshot-arrow:hover { background: #205eea; }
+.hassel-screenshot-arrow.previous { left: 14px; }
+.hassel-screenshot-arrow.next { right: 14px; }
+.hassel-screenshot-arrow .icon { width: 18px; height: 18px; }
+.hassel-screenshot-arrow.previous .icon { transform: rotate(180deg); }
+.hassel-gallery-caption { display: flex; justify-content: space-between; gap: 12px; padding: 14px 2px; color: #26344b; font-size: 12px; font-weight: 500; }
+.hassel-gallery-caption > span:last-child { color: #66758c; font-size: 11px; font-variant-numeric: tabular-nums; }
+.hassel-gallery-caption i { padding: 0 5px; color: #a6b0c1; font-style: normal; }
+.hassel-gallery-thumbnails { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.hassel-gallery-thumbnails button { display: block; min-width: 0; padding: 5px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: #6b7688; text-align: left; }
+.hassel-gallery-thumbnails button[aria-pressed=true] { border-color: #4a79d5; background: #fff; color: #244d9b; box-shadow: 0 3px 10px #31598e12; }
+.hassel-gallery-thumbnails button:hover { background: #fff; }
+.hassel-thumbnail-image { display: block; position: relative; aspect-ratio: 1.6; overflow: hidden; border-radius: 5px; background: #0b101b; }
+.hassel-thumbnail-image img { object-fit: contain; }
+.hassel-gallery-thumbnails button > span:last-child { display: block; margin-top: 7px; padding: 0 1px 2px; font-size: 9px; line-height: 1.4; }
 .modal-visual .project-shot { width: 72%; top: 19%; left: 14%; transform: none; }
 .modal-visual .invitation-card,.modal-visual .invitation-back { width: 32%; height: 82%; left: 33%; }
 .modal-visual .invitation-card > p { font-size: 40px; }
@@ -343,7 +379,7 @@ button,a,summary { outline-offset: 5px; }
   .hero-description { font-size: 16px; max-width: 410px; }
   .hero-actions { gap: 18px; }
   .hero-actions .text-link { font-size: 12px; }
-  .sculpture-shell { margin-left: -12px; }
+  .hero-avatar-shell { margin-left: -12px; }
   .sculpture-note { right: 30px; font-size: 10px; }
   .sculpture-stage { min-height: 360px; }
   .sculpture-caption { padding-inline: 18px; font-size: 10px; }
@@ -377,7 +413,7 @@ button,a,summary { outline-offset: 5px; }
   .hero-actions { gap: 11px; }
   .hero-actions .button { min-height: 48px; padding-inline: 18px; gap: 17px; font-size: 12px; }
   .hero-focus { font-size: 12px; }
-  .sculpture-shell { width: min(620px,100%); margin: 12px auto 18px; }
+  .hero-avatar-shell { width: min(620px,100%); margin: 12px auto 18px; }
   .sculpture-stage { min-height: 300px; }
   .sculpture-note { top: 0; right: 18px; }
   .sculpture-controls { gap: 4px; margin-top: 19px; }
@@ -446,7 +482,7 @@ button,a,summary { outline-offset: 5px; }
   .hero-actions .button { min-height: 52px; font-size: 12px; padding-inline: 20px; }
   .hero-actions .text-link { font-size: 12px; }
   .hero-focus { margin-top: 23px; font-size: 10px; }
-  .sculpture-shell { width: calc(100% + 22px); margin: 18px -11px 19px; }
+  .hero-avatar-shell { width: calc(100% + 22px); margin: 18px -11px 19px; }
   .sculpture-stage { min-height: 0; aspect-ratio: 1.11; }
   .sculpture-note { top: 21px; right: 26px; font-size: 9px; }
   .mini-spark { font-size: 17px; }
@@ -504,6 +540,15 @@ button,a,summary { outline-offset: 5px; }
   .project-dialog { width: calc(100% - 20px); max-height: calc(100dvh - 28px); border-radius: 18px; }
   .dialog-topbar { padding: 8px 12px 8px 20px; }
   .modal-visual { margin-inline: 10px; aspect-ratio: 1.2; }
+  .hassel-screenshots { margin-inline: 10px; padding: 10px; }
+  .preview-hassel .visual-brand { top: 17px; left: 18px; right: 18px; }
+  .preview-hassel .visual-caption { left: 18px; bottom: 22px; max-width: 45%; font-size: 11px; }
+  .preview-hassel .project-open { right: 13px; bottom: 13px; padding-inline: 12px; }
+  .hassel-screenshot-frame { aspect-ratio: 1.2; }
+  .hassel-screenshot-arrow { width: 36px; height: 36px; }
+  .hassel-gallery-thumbnails { gap: 4px; }
+  .hassel-gallery-thumbnails button { padding: 3px; }
+  .hassel-gallery-thumbnails button > span:last-child { font-size: 8px; }
   .modal-visual .project-shot { top: 28%; width: 85%; left: 7%; }
   .modal-visual .invitation-card,.modal-visual .invitation-back { width: 58%; height: 76%; left: 19%; }
   .modal-visual .invitation-card > p { font-size: 29px; }
@@ -572,6 +617,7 @@ button,a,summary { outline-offset: 5px; }
 @media (prefers-reduced-motion: reduce) {
   *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-delay: 0ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .project-shot { transform: none !important; }
+  .card-hassel .project-preview { transform: none !important; }
   .tech-track { animation: none !important; transform: none; }
   .tech-list[aria-hidden=true] { display: none; }
   .tech-window { overflow-x: auto; scrollbar-width: thin; mask-image: none; }

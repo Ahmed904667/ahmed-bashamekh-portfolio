@@ -67,7 +67,7 @@ export function mountVideoGaze(video: HTMLVideoElement, canvas: HTMLCanvasElemen
     const radius = eye.r ?? eye.h * .51;
     const headAngle = eye.a ?? angle;
     const dx = gazeX * (eye.gw ?? eye.w) * .14;
-    const dy = gazeY * (eye.r ? radius * .12 : eye.h * .12);
+    const dy = gazeY * (eye.r ? radius * .46 : eye.h * .46);
     const x = (eye.cx ?? eye.x) + dx * Math.cos(headAngle) - dy * Math.sin(headAngle);
     const y = (eye.cy ?? eye.y) + dx * Math.sin(headAngle) + dy * Math.cos(headAngle);
     const iris = ctx.createRadialGradient(x - radius * .25, y - radius * .3, radius * .15, x, y, radius);
@@ -117,7 +117,9 @@ export function mountVideoGaze(video: HTMLVideoElement, canvas: HTMLCanvasElemen
     const centerX = ((eyes[0].cx ?? eyes[0].x) + (eyes[1].cx ?? eyes[1].x)) / 2 / tracks.width;
     const centerY = ((eyes[0].cy ?? eyes[0].y) + (eyes[1].cy ?? eyes[1].y)) / 2 / tracks.height;
     targetX = Math.max(-1, Math.min(1, (event.clientX - bounds.left - bounds.width * centerX) / (bounds.width * .6)));
-    targetY = Math.max(-1, Math.min(1, (event.clientY - bounds.top - bounds.height * centerY) / (bounds.height * .75)));
+    const eyeY = bounds.top + bounds.height * centerY;
+    const verticalRange = event.clientY < eyeY ? eyeY - bounds.top : bounds.bottom - eyeY;
+    targetY = Math.max(-1, Math.min(1, (event.clientY - eyeY) / Math.max(1, verticalRange)));
     targetWeight = 1;
   }
   function center() { targetX = targetY = 0; targetWeight = tracks?.emptySockets ? 1 : 0; }

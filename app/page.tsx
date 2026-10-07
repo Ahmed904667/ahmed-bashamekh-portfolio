@@ -1,4 +1,4 @@
-import HeroOrb from "./HeroOrb";
+import HeroVideo from "./HeroVideo";
 import ProjectGallery from "./ProjectGallery";
 import { Header, RiyadhClock, CopyEmail } from "./PortfolioChrome";
 import { Icon } from "./Icons";
@@ -22,7 +22,7 @@ export default function Home() {
           <div className="hero-topline"><span>Full-stack engineer. Product-minded builder.</span><RiyadhClock /></div>
           <div className="hero-layout">
             <div className="hero-copy"><h1 id="hero-title"><span className="headline-line"><span>Built with logic.</span></span><span className="headline-line"><span>Made for people.</span></span></h1><p className="hero-description">I’m Ahmed Bashamekh, a software engineer turning complex workflows into clear, useful web experiences.</p><div className="hero-actions"><a href="#work" className="button button-dark">Explore my work<Icon name="arrow-down" /></a><a href="/Ahmed-Bashamekh-CV.pdf" className="text-link" download>Download CV<Icon name="download" /></a></div><p className="hero-focus"><span className="focus-dot" />From first idea to a working product.</p></div>
-            <HeroOrb />
+            <HeroVideo />
           </div>
           <div className="hero-bottom"><span>Engineering across the stack</span><TechMarquee /><a href="#work" className="scroll-link">A closer look<Icon name="arrow-down" /></a></div>
         </section>

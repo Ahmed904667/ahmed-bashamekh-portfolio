@@ -185,7 +185,11 @@ const projectScreenshots = {
   hassel: hasselScreenshots,
   sanad: sanadScreenshots,
   invaro: [{ src: "/projects/invaro-homepage-v2.png", alt: "Invaro event management homepage", label: "Homepage", width: 1669, height: 888 }],
-  qabas: [{ src: "/projects/qabas-new-ui.jpg", alt: "Qabas agency website in Arabic", label: "Arabic homepage", width: 1905, height: 987 }],
+  qabas: [
+    { src: "/projects/qabas-new-ui.jpg", alt: "Qabas Marketing Agency company profile homepage", label: "Agency profile", width: 1905, height: 987 },
+    { src: "/projects/qabas-content-process.png", alt: "Qabas presentation showing how a single creative idea becomes a message, visual, and finished content", label: "Content production", width: 2880, height: 1628 },
+    { src: "/projects/qabas-workflow.png", alt: "Qabas presentation outlining its four step process from understanding the project through final delivery", label: "Project workflow", width: 2880, height: 1612 },
+  ],
 };
 
 function ProjectScreenshots({ project }: { project: Project }) {

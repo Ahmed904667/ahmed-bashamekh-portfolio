@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent, type CSSProperties } from "react";
 import { Icon } from "./Icons";
 
 type ProjectId = "hassel" | "invaro" | "qabas" | "sanad";
@@ -14,21 +14,36 @@ type Project = {
 const projects: Project[] = [
   {
     id: "hassel", name: "Hassel", label: "Property management SaaS", category: "products", period: "2026 — Present",
-    description: "A property-management SaaS for Saudi Arabia, built around a Next.js interface and PostgreSQL-backed data.",
-    stack: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Vercel"],
-    features: [],
+    description: "An all-in-one property management platform for organizing rent collection, leases, expenses, and maintenance. Hassel brings day-to-day operations together with a tenant portal and a WhatsApp AI assistant, so tenants can get help and take action through the channel they already use.",
+    stack: ["Next.js", "Python", "PostgreSQL", "Vercel Blob", "OpenAI", "Meta WhatsApp Business", "Resend", "Vercel"],
+    features: [
+      "Manage rent payments, leases, expenses, unit maintenance, and other property operations in one workspace.",
+      "Role-based access gives organization teams, including managers and finance staff, access to the information relevant to their work; a dedicated tenant portal lets residents follow leases and payments.",
+      "A custom AI agent connects the main web application to WhatsApp. Tenants can submit payment receipts for verification and recording, request maintenance, and get answers based on their account information.",
+      "WhatsApp payment reminders and a shared support inbox help teams follow up and handle tenant conversations.",
+      "The main application is built with Next.js, while the WhatsApp AI agent runs separately in Python. PostgreSQL stores application data and Vercel Blob stores files.",
+      "Integrates OpenAI, Meta WhatsApp Business, and Resend.",
+    ],
     live: "https://hassel.website/", domain: "hassel.website",
   },
   {
     id: "invaro", name: "Invaro", label: "Event management platform", category: "products", period: "Final-year project / 2025",
-    description: "From the first invitation to the final check-in. Guest imports, RSVP tracking, and QR-powered event arrival.",
-    stack: ["Laravel", "PHP", "SQLite", "Tailwind CSS", "Gemini AI", "Twilio"],
-    features: ["Guest imports and RSVP tracking", "QR code check-ins for event arrival", "Gemini invitation personalization and Twilio WhatsApp automation"],
+    description: "An event management platform that brings event details, guest lists, invitations, and guest responses together. Organizers can create an event, import and organize its guests, and follow each invitation through RSVP and venue check-in.",
+    stack: ["Laravel", "PHP", "SQLite", "MySQL-ready migration", "Google Cloud", "Gemini", "Twilio", "WhatsApp"],
+    features: [
+      "Create an event and manage its details, guest list, invitation delivery, RSVP responses, guest count, and check-in status from one event page.",
+      "Import guests from Google Contacts, Google Sheets, and Excel files.",
+      "Use the built-in Gemini assistant to draft personalized invitations, with multilingual support so guests can receive messages in their preferred language.",
+      "Give each guest a QR code that works as an event ticket for entry and check-in.",
+      "Google Cloud integrations support login, contacts, and Sheets; Twilio supports WhatsApp messaging.",
+      "Built with Laravel and PHP using SQLite, with a migration path prepared for MySQL.",
+    ],
   },
   {
-    id: "qabas", name: "Qabas", label: "Bilingual agency website", category: "websites",
-    description: "An Arabic and English web presence for a Riyadh marketing agency. A clear journey through its brand, services, and contact information.",
-    stack: [], features: ["Arabic and English navigation", "Brand values and service discovery", "A direct path to contact the agency"],
+    id: "qabas", name: "Qabas", label: "Qabas Marketing Agency profile", category: "websites",
+    description: "A company profile website for Qabas Marketing Agency in Riyadh. It introduces the agency, presents its brand and services, and gives prospective clients a clear way to get in touch.",
+    stack: ["Next.js", "React", "TypeScript", "CSS"],
+    features: ["Company profile and brand presentation", "Agency services and contact information", "A direct path for prospective clients to get in touch"],
     live: "https://qabassa.com/", domain: "qabassa.com",
   },
   {
@@ -110,7 +125,7 @@ function HasselCardVideo({ active }: { active: boolean }) {
 function ProjectVisual({ project, inDialog = false, active = false }: { project: Project; inDialog?: boolean; active?: boolean }) {
   if (project.id === "hassel") {
     return <>
-      <div className="visual-brand"><span className="hassel-wordmark">Hassel<span lang="ar">حصّل</span></span><span className="live-badge"><i />Live product</span></div>
+      <div className="visual-brand"><Image src="/projects/hassel-logo-en.png" alt="Hassel" width={364} height={141} className="hassel-project-logo" priority /><span className="live-badge"><i />Live product</span></div>
       <HasselCardVideo active={active} />
       <span className="visual-caption">A closer look at Hassel</span>
     </>;
@@ -126,9 +141,9 @@ function ProjectVisual({ project, inDialog = false, active = false }: { project:
         <div className="qabas-ui-sheet">
           <Image src="/projects/qabas-new-ui.jpg" alt="Qabas’s Arabic homepage with its bold marketing, content and design typography" width={1905} height={987} sizes="(max-width: 700px) 90vw, 55vw" />
         </div>
-        <span className="qabas-language-note" lang="ar">عربي <span>/</span> English</span>
+        <span className="qabas-language-note" lang="ar">Qabas Marketing Agency</span>
       </>}
-      <span className="visual-caption">A bilingual brand experience</span>
+      <span className="visual-caption">Qabas Marketing Agency</span>
     </>;
   }
   if (project.id === "invaro") {
@@ -143,7 +158,7 @@ function ProjectVisual({ project, inDialog = false, active = false }: { project:
     </>;
   }
   return <>
-    <div className="visual-brand"><span className="sanad-label">Sanad <span lang="ar">سند</span></span><span className="live-badge"><i />Live platform</span></div>
+    <div className="visual-brand"><Image src="/projects/sanad-logo.png" alt="Sanad Quran learning platform" width={372} height={418} className="sanad-project-logo" priority /><span className="live-badge"><i />Live platform</span></div>
     <div className="project-shot">
       <div className="browser-chrome"><span className="browser-dots"><i /><i /><i /></span><span>{project.domain}</span><Icon name="arrow-up-right" /></div>
       <Image src="/projects/sanad-website.png" alt="Sanad Quran learning platform landing page in Arabic" width={2880} height={1788} sizes={inDialog ? "(max-width: 800px) 95vw, 900px" : "(max-width: 700px) 90vw, 55vw"} className="project-screenshot" />
@@ -166,47 +181,82 @@ const sanadScreenshots = [
   { src: "/projects/sanad-student.png", alt: "Sanad student dashboard with upcoming sessions, learning progress, and class calendar", label: "Student dashboard", width: 2880, height: 1800 },
 ];
 
+const projectScreenshots = {
+  hassel: hasselScreenshots,
+  sanad: sanadScreenshots,
+  invaro: [{ src: "/projects/invaro-homepage-v2.png", alt: "Invaro event management homepage", label: "Homepage", width: 1669, height: 888 }],
+  qabas: [{ src: "/projects/qabas-new-ui.jpg", alt: "Qabas agency website in Arabic", label: "Arabic homepage", width: 1905, height: 987 }],
+};
+
 function ProjectScreenshots({ project }: { project: Project }) {
-  const screenshots = project.id === "sanad" ? sanadScreenshots : hasselScreenshots;
+  const screenshots = projectScreenshots[project.id];
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-  const [pageVisible, setPageVisible] = useState(true);
+  const [dragX, setDragX] = useState(0);
+  const gestureRef = useRef<{ x: number; y: number; pointerId: number } | null>(null);
+  const draggedRef = useRef(false);
+  const stageRef = useRef<HTMLDivElement>(null);
   const shot = screenshots[active];
-  const move = (direction: number) => setActive((index) => (index + direction + screenshots.length) % screenshots.length);
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const preference = () => setReduced(media.matches);
-    const visibility = () => setPageVisible(!document.hidden);
-    preference(); visibility();
-    media.addEventListener("change", preference);
-    document.addEventListener("visibilitychange", visibility);
-    return () => { media.removeEventListener("change", preference); document.removeEventListener("visibilitychange", visibility); };
-  }, []);
-  const rotating = !paused && !hovered && !focused && !reduced && pageVisible;
-  useEffect(() => {
-    if (!rotating) return;
-    const timer = window.setInterval(() => setActive((index) => (index + 1) % screenshots.length), 4500);
-    return () => window.clearInterval(timer);
-  }, [rotating, active]);
-  return <section className={`hassel-screenshots ${project.id}-screenshots`} aria-label={`${project.name} product gallery`} aria-roledescription="carousel"
-    onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-    onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}
-    onKeyDown={(event) => { if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1); } }}>
-    <div className="hassel-gallery-heading"><span>Inside {project.name}</span><button type="button" className="hassel-gallery-play" aria-label={paused ? "Resume gallery autoplay" : "Pause gallery autoplay"} aria-pressed={paused} onClick={() => setPaused((value) => !value)} disabled={reduced}><Icon name={paused || reduced ? "play" : "pause"} /><span>{paused || reduced ? "Paused" : "Auto play"}</span></button></div>
-    <div className="hassel-screenshot-frame">
-      {screenshots.map((image, index) => <div key={image.src} className="hassel-gallery-slide" hidden={active !== index} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${screenshots.length}`}>
-        <Image src={image.src} alt={image.alt} fill sizes="(max-width: 800px) 95vw, 880px" loading="eager" />
-      </div>)}
-      <button type="button" className="hassel-screenshot-arrow previous" onClick={() => move(-1)} aria-label={`Previous ${project.name} screenshot`}><Icon name="arrow-right" /></button>
-      <button type="button" className="hassel-screenshot-arrow next" onClick={() => move(1)} aria-label={`Next ${project.name} screenshot`}><Icon name="arrow-right" /></button>
+  const select = (index: number) => {
+    setActive(index);
+    stageRef.current?.scrollTo({ top: 0, left: 0 });
+    stageRef.current?.closest("dialog")?.scrollTo({ top: 0 });
+
+  };
+  const move = (direction: number) => select((active + direction + screenshots.length) % screenshots.length);
+  return <section className={`project-viewer viewer-${project.id}`} aria-label={`${project.name} screenshot gallery`} aria-roledescription={screenshots.length > 1 ? "carousel" : undefined}
+    onKeyDown={(event) => {
+      if (screenshots.length > 1 && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+        event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1);
+      }
+    }}>
+    <div className="viewer-window">
+      <div className="viewer-toolbar">
+        <span className="viewer-window-dots" aria-hidden="true"><i /><i /><i /></span>
+        <span className="viewer-window-title">{project.name}<span>/</span>{shot.label}</span>
+
+      </div>
+      <div id={`viewer-stage-${project.id}`} ref={stageRef} className={`viewer-stage${screenshots.length > 1 ? " viewer-carousel" : ""}${shot.height > shot.width ? " is-portrait" : ""}${dragX ? " is-dragging" : ""}`} style={{ "--drag-x": `${dragX * .65}px` } as CSSProperties} tabIndex={0} role="region" aria-label={`${shot.label} screenshot${screenshots.length > 1 ? ", swipe or use arrow keys to rotate" : ""}`}
+        onPointerDown={(event) => {
+          if (screenshots.length < 2 || !event.isPrimary || event.button !== 0) return;
+          gestureRef.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId };
+          draggedRef.current = false;
+        }}
+        onPointerMove={(event) => {
+          const gesture = gestureRef.current;
+          if (!gesture || gesture.pointerId !== event.pointerId) return;
+          const dx = event.clientX - gesture.x;
+          if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(event.clientY - gesture.y)) {
+            draggedRef.current = true;
+            event.currentTarget.setPointerCapture(event.pointerId);
+            setDragX(Math.max(-140, Math.min(140, dx)));
+          }
+        }}
+        onPointerUp={(event) => {
+          const gesture = gestureRef.current;
+          if (!gesture || gesture.pointerId !== event.pointerId) return;
+          const dx = event.clientX - gesture.x;
+          if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(event.clientY - gesture.y) * 1.2) {
+            move(dx < 0 ? 1 : -1);
+            event.currentTarget.focus({ preventScroll: true });
+          }
+          gestureRef.current = null; setDragX(0);
+        }}
+        onPointerCancel={() => { gestureRef.current = null; setDragX(0); }}
+        onClickCapture={(event) => { if (draggedRef.current) { event.preventDefault(); event.stopPropagation(); draggedRef.current = false; } }}>
+        {screenshots.length > 1 ? screenshots.map((image, index) => {
+          let offset = (index - active + screenshots.length) % screenshots.length;
+          if (offset > screenshots.length / 2) offset -= screenshots.length;
+          return <button key={image.src} type="button" className={`viewer-carousel-card${offset === 0 ? " is-active" : ""}`} style={{ "--slide-offset": offset, zIndex: screenshots.length - Math.abs(offset), opacity: Math.abs(offset) > 1 ? 0 : offset === 0 ? 1 : .65 } as CSSProperties} tabIndex={-1} aria-hidden={offset !== 0} aria-label={image.alt} onClick={() => select(index)}>
+            <Image src={image.src} alt={offset === 0 ? image.alt : ""} width={image.width} height={image.height} sizes="(max-width: 700px) 72vw, 750px" className="viewer-image" loading="eager" draggable={false} />
+          </button>;
+        }) : <Image key={shot.src} src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} sizes="(max-width: 700px) 92vw, 940px" className="viewer-image" loading="eager" />}
+      </div>
     </div>
-    <div className="hassel-gallery-caption" aria-live={rotating ? "off" : "polite"}><span>{shot.label}</span><span>{String(active + 1).padStart(2, "0")} <i>/</i> {String(screenshots.length).padStart(2, "0")}</span></div>
-    <div className="hassel-gallery-thumbnails" style={{ gridTemplateColumns: `repeat(${screenshots.length}, minmax(0, 1fr))` }} aria-label="Choose a screenshot">{screenshots.map((image, index) => <button key={image.src} type="button" aria-label={`Show ${image.label}`} aria-pressed={active === index} onClick={() => setActive(index)}>
-      <span className="hassel-thumbnail-image"><Image src={image.src} alt="" fill sizes="150px" /></span><span>{image.label}</span>
-    </button>)}</div>
+    <div className="viewer-footer">
+      <div className="viewer-caption" aria-live="polite" aria-atomic="true"><span className="viewer-eyebrow">{screenshots.length > 1 ? "Drag to rotate · Click to explore" : "A closer look"}</span><span className="viewer-shot-title">{shot.label}</span></div>
+
+    </div>
+
   </section>;
 }
 
@@ -276,7 +326,7 @@ export default function ProjectGallery() {
     <dialog className="project-dialog" ref={dialogRef} aria-labelledby="project-dialog-title" onClose={() => setSelected(null)} onClick={(event) => { if (event.target === event.currentTarget) dialogRef.current?.close(); }}>
       {selected ? <div className="dialog-content">
         <div className="dialog-topbar"><span>Project overview</span><button className="icon-button" type="button" onClick={() => dialogRef.current?.close()} aria-label="Close project details"><Icon name="close" /></button></div>
-        {selected.id === "hassel" || selected.id === "sanad" ? <ProjectScreenshots key={selected.id} project={selected} /> : <div className={`modal-visual preview-${selected.id}`}><ProjectVisual project={selected} inDialog /></div>}
+        <ProjectScreenshots key={selected.id} project={selected} />
         <div className="dialog-body"><p className="project-label">{selected.label}{selected.period ? ` / ${selected.period}` : ""}</p><h2 id="project-dialog-title">{selected.name}</h2><p className="dialog-description">{selected.description}</p>
           {selected.features.length > 0 || selected.stack.length > 0 ? <div className="project-detail-grid">{selected.features.length > 0 ? <div><p className="detail-label">Inside the project</p><ul className="feature-list">{selected.features.map((feature) => <li key={feature}><Icon name="check" /><span>{feature}</span></li>)}</ul></div> : null}{selected.stack.length > 0 ? <div><p className="detail-label">Built with</p><div className="dialog-stack">{selected.stack.map((technology) => <span key={technology}>{technology}</span>)}</div></div> : null}</div> : null}
           {selected.id === "invaro" ? <JourneyExplorer /> : null}

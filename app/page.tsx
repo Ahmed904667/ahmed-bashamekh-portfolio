@@ -1,7 +1,7 @@
 import HeroVideo from "./HeroVideo";
 import ProjectGallery from "./ProjectGallery";
 import { Header, RiyadhClock, CopyEmail } from "./PortfolioChrome";
-import { Icon } from "./Icons";
+import { BrandIcon, Icon } from "./Icons";
 import TechMarquee from "./TechMarquee";
 import ExperienceItem from "./ExperienceItem";
 
@@ -44,7 +44,7 @@ export default function Home() {
         <footer id="contact" className="contact-section container">
           <div className="contact-top"><p className="section-label"><span className="label-line" />Have a project or an opportunity?</p><span>Good things start with a conversation.</span></div>
           <div className="contact-main"><h2>Let’s build<br />something useful.</h2><a href="mailto:as.bashamkha@gmail.com" className="contact-arrow" aria-label="Email Ahmed Bashamekh"><Icon name="arrow-up-right" /></a></div>
-          <div className="contact-details"><a href="mailto:as.bashamkha@gmail.com" className="contact-email">as.bashamkha@gmail.com<Icon name="arrow-up-right" /></a><CopyEmail /><a className="text-link" href="/Ahmed-Bashamekh-CV.pdf" download>Download CV<Icon name="download" /></a></div>
+          <div className="contact-details"><a href="mailto:as.bashamkha@gmail.com" className="contact-email">as.bashamkha@gmail.com<Icon name="arrow-up-right" /></a><CopyEmail /><a className="text-link" href="https://www.linkedin.com/in/ahmed-bashamekh-73a710262/" target="_blank" rel="noreferrer"><BrandIcon name="linkedin" />LinkedIn<Icon name="arrow-up-right" /></a><a className="text-link" href="https://github.com/Ahmed904667" target="_blank" rel="noreferrer"><BrandIcon name="github" />GitHub<Icon name="arrow-up-right" /></a><a className="text-link" href="/Ahmed-Bashamekh-CV.pdf" download>Download CV<Icon name="download" /></a></div>
           <div className="footer-bottom"><span>© {new Date().getFullYear()} Ahmed Bashamekh</span><span>Thoughtfully designed. Independently built.</span><a href="#top">Back to top<Icon name="arrow-up-right" /></a></div>
         </footer>
       </div>

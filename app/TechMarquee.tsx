@@ -6,7 +6,7 @@ import { Icon } from "./Icons";
 
 const technologies = [
   ["Next.js", "nextdotjs"], ["React", "react"], ["Laravel", "laravel"],
-  ["TypeScript", "typescript"], ["Tailwind CSS", "tailwindcss"],
+  ["TypeScript", "typescript"], ["Python", "python"], ["Tailwind CSS", "tailwindcss"],
   ["Docker", "docker"], ["Railway", "railway"],
   ["PostgreSQL", "postgresql"], ["Vercel", "vercel"],
 ];

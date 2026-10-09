@@ -30,7 +30,7 @@ Made for people.                     [drag, keyboard, mode, pause]
 ------------------------ technologies / scroll cue -------------------
 Selected work                                       [category filters]
 [Hassel / real live-site capture]    [Invaro / guest journey illustration]
-[Qabas / real live-site capture]    [Sanad / title treatment]
+[Qabas / real live-site capture]    [Sanad / supplied platform screenshots]
 [Every project opens an accessible detail dialog]
 [Dark career section: experience accordions + skills]
 [Large contact link / copy email / resume]
@@ -47,6 +47,6 @@ No scroll hijacking. Ambient rendering stops offscreen and in inactive tabs.
 
 ## Truth and quality
 Hassel and Qabas images are captures of their actual public live sites, including the sites' own illustrative content.
-Invaro information comes from the supplied CV. Sanad has no invented stack, metrics, or features.
+Invaro information comes from the supplied CV. Sanad content and platform screenshots come from Ahmed’s supplied project description and images.
 Use actual PDF resume and live URLs; repository links require the user's real GitHub URLs.
 Readability, 44px controls, semantic markup, native dialog focus, reduced motion, mobile and landscape review, production build.

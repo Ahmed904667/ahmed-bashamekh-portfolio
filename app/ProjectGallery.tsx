@@ -32,9 +32,16 @@ const projects: Project[] = [
     live: "https://qabassa.com/", domain: "qabassa.com",
   },
   {
-    id: "sanad", name: "Sanad", label: "Completed software project", category: "products",
-    description: "A completed software project, included in my selected body of work.",
-    stack: [], features: [],
+    id: "sanad", name: "Sanad", label: "Online Quran learning platform", category: "products",
+    description: "Bringing Quran teachers and students together across the world. Sanad turns online halaqat into an organized learning experience with personalized plans, coordinated sessions, and progress tracking.",
+    stack: ["Next.js", "PostgreSQL", "Vercel Blob", "Vercel", "GitHub"],
+    features: [
+      "Dedicated student and teacher experiences: students manage their learning plans, subscriptions, and classes; teachers share class links and track student progress.",
+      "Each student is assigned a teacher and selects session times from that teacher’s availability, preventing overlapping bookings.",
+      "Selected surahs are divided evenly across classes, accounting for ayahs and pages to create a balanced learning plan.",
+      "Vercel Blob handles object storage, with deployment on Vercel and version control through GitHub.",
+    ],
+    live: "https://sanad-iota-lake.vercel.app/", domain: "sanad-iota-lake.vercel.app",
   },
 ];
 
@@ -136,9 +143,12 @@ function ProjectVisual({ project, inDialog = false, active = false }: { project:
     </>;
   }
   return <>
-    <div className="visual-brand"><span className="sanad-label">Sanad</span><span className="visual-category">Completed project</span></div>
-    <div className="sanad-composition" aria-hidden="true"><div className="sanad-layer layer-back" /><div className="sanad-layer layer-middle" /><div className="sanad-layer layer-front"><span>S</span></div><span className="sanad-outline">Sanad</span></div>
-    <span className="visual-caption">Software by Ahmed Bashamekh</span>
+    <div className="visual-brand"><span className="sanad-label">Sanad <span lang="ar">سند</span></span><span className="live-badge"><i />Live platform</span></div>
+    <div className="project-shot">
+      <div className="browser-chrome"><span className="browser-dots"><i /><i /><i /></span><span>{project.domain}</span><Icon name="arrow-up-right" /></div>
+      <Image src="/projects/sanad-website.png" alt="Sanad Quran learning platform landing page in Arabic" width={2880} height={1788} sizes={inDialog ? "(max-width: 800px) 95vw, 900px" : "(max-width: 700px) 90vw, 55vw"} className="project-screenshot" />
+    </div>
+    <span className="visual-caption">Quran learning, wherever you are</span>
   </>;
 }
 
@@ -150,15 +160,22 @@ const hasselScreenshots = [
   { src: "/projects/hassel-maintenance.jpg", alt: "Hassel maintenance work orders board", label: "Maintenance tracking", width: 1439, height: 900 },
 ];
 
-function HasselScreenshots() {
+const sanadScreenshots = [
+  { src: "/projects/sanad-website.png", alt: "Sanad public Quran learning website in Arabic", label: "Public website", width: 2880, height: 1788 },
+  { src: "/projects/sanad-admin.png", alt: "Sanad administration dashboard with subscription reviews, teachers, students, and classes", label: "Administration dashboard", width: 2880, height: 1796 },
+  { src: "/projects/sanad-student.png", alt: "Sanad student dashboard with upcoming sessions, learning progress, and class calendar", label: "Student dashboard", width: 2880, height: 1800 },
+];
+
+function ProjectScreenshots({ project }: { project: Project }) {
+  const screenshots = project.id === "sanad" ? sanadScreenshots : hasselScreenshots;
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
-  const shot = hasselScreenshots[active];
-  const move = (direction: number) => setActive((index) => (index + direction + hasselScreenshots.length) % hasselScreenshots.length);
+  const shot = screenshots[active];
+  const move = (direction: number) => setActive((index) => (index + direction + screenshots.length) % screenshots.length);
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     const preference = () => setReduced(media.matches);
@@ -171,23 +188,23 @@ function HasselScreenshots() {
   const rotating = !paused && !hovered && !focused && !reduced && pageVisible;
   useEffect(() => {
     if (!rotating) return;
-    const timer = window.setInterval(() => setActive((index) => (index + 1) % hasselScreenshots.length), 4500);
+    const timer = window.setInterval(() => setActive((index) => (index + 1) % screenshots.length), 4500);
     return () => window.clearInterval(timer);
   }, [rotating, active]);
-  return <section className="hassel-screenshots" aria-label="Hassel product gallery" aria-roledescription="carousel"
+  return <section className={`hassel-screenshots ${project.id}-screenshots`} aria-label={`${project.name} product gallery`} aria-roledescription="carousel"
     onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
     onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}
     onKeyDown={(event) => { if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1); } }}>
-    <div className="hassel-gallery-heading"><span>Inside Hassel</span><button type="button" className="hassel-gallery-play" aria-label={paused ? "Resume gallery autoplay" : "Pause gallery autoplay"} aria-pressed={paused} onClick={() => setPaused((value) => !value)} disabled={reduced}><Icon name={paused || reduced ? "play" : "pause"} /><span>{paused || reduced ? "Paused" : "Auto play"}</span></button></div>
+    <div className="hassel-gallery-heading"><span>Inside {project.name}</span><button type="button" className="hassel-gallery-play" aria-label={paused ? "Resume gallery autoplay" : "Pause gallery autoplay"} aria-pressed={paused} onClick={() => setPaused((value) => !value)} disabled={reduced}><Icon name={paused || reduced ? "play" : "pause"} /><span>{paused || reduced ? "Paused" : "Auto play"}</span></button></div>
     <div className="hassel-screenshot-frame">
-      {hasselScreenshots.map((image, index) => <div key={image.src} className="hassel-gallery-slide" hidden={active !== index} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${hasselScreenshots.length}`}>
+      {screenshots.map((image, index) => <div key={image.src} className="hassel-gallery-slide" hidden={active !== index} role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${screenshots.length}`}>
         <Image src={image.src} alt={image.alt} fill sizes="(max-width: 800px) 95vw, 880px" loading="eager" />
       </div>)}
-      <button type="button" className="hassel-screenshot-arrow previous" onClick={() => move(-1)} aria-label="Previous Hassel screenshot"><Icon name="arrow-right" /></button>
-      <button type="button" className="hassel-screenshot-arrow next" onClick={() => move(1)} aria-label="Next Hassel screenshot"><Icon name="arrow-right" /></button>
+      <button type="button" className="hassel-screenshot-arrow previous" onClick={() => move(-1)} aria-label={`Previous ${project.name} screenshot`}><Icon name="arrow-right" /></button>
+      <button type="button" className="hassel-screenshot-arrow next" onClick={() => move(1)} aria-label={`Next ${project.name} screenshot`}><Icon name="arrow-right" /></button>
     </div>
-    <div className="hassel-gallery-caption" aria-live={rotating ? "off" : "polite"}><span>{shot.label}</span><span>{String(active + 1).padStart(2, "0")} <i>/</i> {String(hasselScreenshots.length).padStart(2, "0")}</span></div>
-    <div className="hassel-gallery-thumbnails" aria-label="Choose a screenshot">{hasselScreenshots.map((image, index) => <button key={image.src} type="button" aria-label={`Show ${image.label}`} aria-pressed={active === index} onClick={() => setActive(index)}>
+    <div className="hassel-gallery-caption" aria-live={rotating ? "off" : "polite"}><span>{shot.label}</span><span>{String(active + 1).padStart(2, "0")} <i>/</i> {String(screenshots.length).padStart(2, "0")}</span></div>
+    <div className="hassel-gallery-thumbnails" style={{ gridTemplateColumns: `repeat(${screenshots.length}, minmax(0, 1fr))` }} aria-label="Choose a screenshot">{screenshots.map((image, index) => <button key={image.src} type="button" aria-label={`Show ${image.label}`} aria-pressed={active === index} onClick={() => setActive(index)}>
       <span className="hassel-thumbnail-image"><Image src={image.src} alt="" fill sizes="150px" /></span><span>{image.label}</span>
     </button>)}</div>
   </section>;
@@ -259,7 +276,7 @@ export default function ProjectGallery() {
     <dialog className="project-dialog" ref={dialogRef} aria-labelledby="project-dialog-title" onClose={() => setSelected(null)} onClick={(event) => { if (event.target === event.currentTarget) dialogRef.current?.close(); }}>
       {selected ? <div className="dialog-content">
         <div className="dialog-topbar"><span>Project overview</span><button className="icon-button" type="button" onClick={() => dialogRef.current?.close()} aria-label="Close project details"><Icon name="close" /></button></div>
-        {selected.id === "hassel" ? <HasselScreenshots /> : <div className={`modal-visual preview-${selected.id}`}><ProjectVisual project={selected} inDialog /></div>}
+        {selected.id === "hassel" || selected.id === "sanad" ? <ProjectScreenshots key={selected.id} project={selected} /> : <div className={`modal-visual preview-${selected.id}`}><ProjectVisual project={selected} inDialog /></div>}
         <div className="dialog-body"><p className="project-label">{selected.label}{selected.period ? ` / ${selected.period}` : ""}</p><h2 id="project-dialog-title">{selected.name}</h2><p className="dialog-description">{selected.description}</p>
           {selected.features.length > 0 || selected.stack.length > 0 ? <div className="project-detail-grid">{selected.features.length > 0 ? <div><p className="detail-label">Inside the project</p><ul className="feature-list">{selected.features.map((feature) => <li key={feature}><Icon name="check" /><span>{feature}</span></li>)}</ul></div> : null}{selected.stack.length > 0 ? <div><p className="detail-label">Built with</p><div className="dialog-stack">{selected.stack.map((technology) => <span key={technology}>{technology}</span>)}</div></div> : null}</div> : null}
           {selected.id === "invaro" ? <JourneyExplorer /> : null}

@@ -28,7 +28,7 @@ Project content is in `app/ProjectGallery.tsx`. Career content is in `app/page.t
 Public screenshots are in `public/projects/`. The resume is `public/Ahmed-Bashamekh-CV.pdf`.
 
 Hassel and Qabas link to their actual live sites. Invaro details come from the supplied CV.
-Sanad is included as a completed project with no invented features or technology stack.
+Sanad includes user-supplied screenshots, a live platform link, and details about Quran learning plans, student and teacher workflows, scheduling, and its Next.js, PostgreSQL, and Vercel Blob stack.
 Repository URLs have not been supplied, so source links and additional repository-specific facts must be added once those URLs are known.
 Railway, Docker, Tailwind CSS, OpenAI, Resend, and SendGrid were added to the skills at Ahmed's explicit request. The laptop IDE is an illustration, not an embedded editor or a screenshot of a project repository.
 

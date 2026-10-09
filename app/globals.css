@@ -287,6 +287,11 @@ button,a,summary { outline-offset: 5px; }
 .project-preview:hover .invitation-card { transform: rotate(-4deg) translateY(-3px); }
 .project-preview:hover .rsvp-chip { transform: rotate(1deg) translateY(-5px); }
 .sanad-label { font-size: 24px; font-weight: 600; letter-spacing: -.04em; }
+.sanad-label span { margin-left: 8px; font-size: 21px; }
+.sanad-screenshots { background: linear-gradient(135deg, #ffffff, #e1eee7); border-color: #d0dfd6; }
+.sanad-screenshots .hassel-screenshot-frame { border-color: #d0dfd6; background: #f7f9f8; }
+.sanad-screenshots .hassel-gallery-thumbnails button[aria-pressed=true] { border-color: #35725a; color: #23513e; }
+.sanad-screenshots .hassel-screenshot-arrow:hover { background: #23513e; }
 .preview-sanad .visual-category { color: #69817b; }
 .sanad-composition { position: absolute; inset: 14% 0 0; perspective: 900px; }
 .sanad-layer { width: 51%; aspect-ratio: 1; position: absolute; top: 5%; left: 26%; border-radius: 24px; transform: rotateX(48deg) rotateZ(-27deg); transition: transform 450ms var(--ease); }

@@ -29,6 +29,7 @@ Public screenshots are in `public/projects/`. The resume is `public/Ahmed-Basham
 
 Hassel and Qabas link to their actual live sites. Invaro details come from the supplied CV.
 Sanad includes user-supplied screenshots, a live platform link, and details about Quran learning plans, student and teacher workflows, scheduling, and its Next.js, PostgreSQL, and Vercel Blob stack.
+Receiper includes the supplied logo and mobile screenshot, a Railway live link, and details about its AI receipt and expense tracking, support for any language and multiple currencies, Flask/PostgreSQL stack, private image storage, and account protection.
 Repository URLs have not been supplied, so source links and additional repository-specific facts must be added once those URLs are known.
 Railway, Docker, Tailwind CSS, OpenAI, Resend, and SendGrid were added to the skills at Ahmed's explicit request. The laptop IDE is an illustration, not an embedded editor or a screenshot of a project repository.
 

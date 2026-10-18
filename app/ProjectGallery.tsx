@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type PointerEvent, type CSSProperties } from "react";
 import { Icon } from "./Icons";
 
-type ProjectId = "hassel" | "invaro" | "qabas" | "sanad";
+type ProjectId = "hassel" | "invaro" | "qabas" | "sanad" | "receiper";
 type Category = "all" | "products" | "websites";
 type Project = {
   id: ProjectId; name: string; label: string; category: Exclude<Category, "all">;
@@ -57,6 +57,20 @@ const projects: Project[] = [
       "Vercel Blob handles object storage, with deployment on Vercel and version control through GitHub.",
     ],
     live: "https://sanad-iota-lake.vercel.app/", domain: "sanad-iota-lake.vercel.app",
+  },
+  {
+    id: "receiper", name: "Receiper", label: "AI receipt & expense tracker", category: "products",
+    description: "An AI-powered expense tracker that turns receipt photos and chat messages into organized spending records. Receiper prepares the details for review and confirmation, then brings expense management, monthly budgets, and spending summaries into one place. Supports any language and multiple currencies.",
+    stack: ["Python", "Flask", "PostgreSQL", "HTML", "CSS", "JavaScript", "Gunicorn", "OpenAI Responses API", "Private S3-compatible storage", "Docker", "Railway"],
+    features: [
+      "Upload a receipt image or describe an expense in chat. The OpenAI Responses API reads the receipt or message and prepares expense details for you to review and confirm before saving.",
+      "Search and edit expenses, organize categories, set monthly budgets, view spending summaries, and export expenses as CSV files.",
+      "Supports any language and multiple currencies.",
+      "HTML, CSS, and JavaScript power the frontend. A Python backend uses Flask and Gunicorn, with PostgreSQL for accounts, expenses, and chat data.",
+      "Private S3-compatible storage holds receipt images and profile photos. The application runs in Docker on Railway.",
+      "Account protection includes Argon2id password hashing, secure session cookies, CSRF protection, and rate limits.",
+    ],
+    live: "https://receiper-production.up.railway.app/", domain: "receiper-production.up.railway.app",
   },
 ];
 
@@ -123,6 +137,14 @@ function HasselCardVideo({ active }: { active: boolean }) {
 }
 
 function ProjectVisual({ project, inDialog = false, active = false }: { project: Project; inDialog?: boolean; active?: boolean }) {
+  if (project.id === "receiper") {
+    return <>
+      <div className="visual-brand"><span className="receiper-wordmark"><Image src="/projects/receiper-logo.png" alt="" width={1254} height={1254} sizes="44px" />Receiper</span><span className="live-badge"><i />Live product</span></div>
+      <div className="receiper-preview-copy"><span>AI-powered expense tracking</span><strong>Every expense.<br />A little clearer.</strong></div>
+      <div className="receiper-phone"><Image src="/projects/receiper-mobile.png" alt="Receiper mobile chat interface with receipt upload and spending summary prompts" width={1179} height={2555} sizes="(max-width: 700px) 36vw, 240px" /></div>
+      <span className="visual-caption">Upload. Chat. Review.</span>
+    </>;
+  }
   if (project.id === "hassel") {
     return <>
       <div className="visual-brand"><Image src="/projects/hassel-logo-en.png" alt="Hassel" width={364} height={141} className="hassel-project-logo" priority /><span className="live-badge"><i />Live product</span></div>
@@ -184,6 +206,7 @@ const sanadScreenshots = [
 const projectScreenshots = {
   hassel: hasselScreenshots,
   sanad: sanadScreenshots,
+  receiper: [{ src: "/projects/receiper-mobile.png", alt: "Receiper mobile chat interface with receipt upload, spending prompts, and a message composer", label: "Receipt & expense chat", width: 1179, height: 2555 }],
   invaro: [{ src: "/projects/invaro-homepage-v2.png", alt: "Invaro event management homepage", label: "Homepage", width: 1669, height: 888 }],
   qabas: [
     { src: "/projects/qabas-new-ui.jpg", alt: "Qabas Marketing Agency company profile homepage", label: "Agency profile", width: 1905, height: 987 },
@@ -324,7 +347,7 @@ export default function ProjectGallery() {
     return () => { document.body.style.overflow = previousOverflow; };
   }, [selected]);
   return <>
-    <div className="gallery-header"><div><p className="section-label"><span className="label-line" />Selected work</p><h2>A few things<br />I’ve brought to life.</h2></div><div className="gallery-intro"><p>Different problems. One approach:<br />make the experience clear, useful, and reliable.</p><div className="project-filters" aria-label="Filter projects">{([["all", "All work"], ["products", "Products"], ["websites", "Websites"]] as [Category, string][]).map(([value, label]) => <button key={value} type="button" aria-pressed={category === value} onClick={() => setCategory(value)}>{label}{value === "all" ? <span>4</span> : null}</button>)}</div></div></div>
+    <div className="gallery-header"><div><p className="section-label"><span className="label-line" />Selected work</p><h2>A few things<br />I’ve brought to life.</h2></div><div className="gallery-intro"><p>Different problems. One approach:<br />make the experience clear, useful, and reliable.</p><div className="project-filters" aria-label="Filter projects">{([["all", "All work"], ["products", "Products"], ["websites", "Websites"]] as [Category, string][]).map(([value, label]) => <button key={value} type="button" aria-pressed={category === value} onClick={() => setCategory(value)}>{label}{value === "all" ? <span>{projects.length}</span> : null}</button>)}</div></div></div>
     <p className="sr-only" aria-live="polite">{visibleProjects.length} {visibleProjects.length === 1 ? "project" : "projects"} shown.</p>
     <div className={`project-gallery filter-${category}`}>{visibleProjects.map((project) => <ProjectCard key={project.id} project={project} onOpen={setSelected} />)}</div>
     <dialog className="project-dialog" ref={dialogRef} aria-labelledby="project-dialog-title" onClose={() => setSelected(null)} onClick={(event) => { if (event.target === event.currentTarget) dialogRef.current?.close(); }}>
@@ -334,7 +357,7 @@ export default function ProjectGallery() {
         <div className="dialog-body"><p className="project-label">{selected.label}{selected.period ? ` / ${selected.period}` : ""}</p><h2 id="project-dialog-title">{selected.name}</h2><p className="dialog-description">{selected.description}</p>
           {selected.features.length > 0 || selected.stack.length > 0 ? <div className="project-detail-grid">{selected.features.length > 0 ? <div><p className="detail-label">Inside the project</p><ul className="feature-list">{selected.features.map((feature) => <li key={feature}><Icon name="check" /><span>{feature}</span></li>)}</ul></div> : null}{selected.stack.length > 0 ? <div><p className="detail-label">Built with</p><div className="dialog-stack">{selected.stack.map((technology) => <span key={technology}>{technology}</span>)}</div></div> : null}</div> : null}
           {selected.id === "invaro" ? <JourneyExplorer /> : null}
-          {selected.live ? <a className="button button-dark" href={selected.live} target="_blank" rel="noreferrer">Visit {selected.domain}<Icon name="arrow-up-right" /></a> : null}
+          {selected.live ? <a className="button button-dark" href={selected.live} target="_blank" rel="noreferrer">Visit {selected.id === "receiper" ? selected.name : selected.domain}<Icon name="arrow-up-right" /></a> : null}
         </div>
       </div> : null}
     </dialog>

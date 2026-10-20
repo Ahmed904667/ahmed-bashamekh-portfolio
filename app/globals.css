@@ -172,7 +172,7 @@ button,a,summary { outline-offset: 5px; }
 .project-filters button:hover { background: #e9eae6; }
 .project-filters button span { margin-left: 9px; color: #667183; font-size: 11px; }
 .project-gallery { display: grid; grid-template-columns: 1.12fr .88fr; gap: 52px 40px; align-items: start; }
-.filter-all .card-invaro,.filter-all .card-sanad { margin-top: 75px; }
+.filter-all .card-invaro,.filter-all .card-sanad,.filter-all .card-portfolio { margin-top: 75px; }
 .project-card { min-width: 0; }
 .project-preview { display: block; width: 100%; position: relative; overflow: hidden; aspect-ratio: 1.46; padding: 0; border: 0; border-radius: 22px; text-align: left; color: var(--ink); isolation: isolate; }
 .project-preview:focus-visible { outline-offset: 6px; }
@@ -256,6 +256,20 @@ button,a,summary { outline-offset: 5px; }
 .project-open { position: absolute; z-index: 5; bottom: 20px; right: 22px; display: flex; min-height: 43px; align-items: center; gap: 11px; padding: 0 13px 0 17px; border-radius: 100px; color: var(--ink); background: #fff; font-size: 11px; font-weight: 600; opacity: 0; transform: translateY(9px); box-shadow: 0 4px 22px #151d3620; transition: opacity 220ms var(--ease), transform 220ms var(--ease); }
 .project-open .icon { width: 14px; height: 14px; }
 .preview-receiper { background: #e6ecdf; color: #174c37; }
+.preview-portfolio { background: #e4e9f3; color: #26385d; }
+.preview-portfolio .visual-brand { top: 6%; left: 6%; right: 6%; }
+.portfolio-wordmark { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; letter-spacing: -.04em; }
+.portfolio-wordmark img { display: block; width: 40px; height: 40px; object-fit: contain; }
+.portfolio-ui-sheet { position: absolute; top: 24%; left: 7%; width: 86%; overflow: hidden; border: 1px solid #ffffffb3; border-radius: 7px; background: #f5f5f2; box-shadow: 0 18px 34px #26385d26; transform: rotate(-3deg); transition: transform 450ms var(--ease); }
+.portfolio-ui-sheet img { display: block; width: 100%; height: auto; }
+.preview-portfolio .visual-caption { left: 6%; bottom: 7%; padding: 0; background: none; color: #4b5b78; }
+.preview-portfolio .project-open { right: 6%; bottom: 5%; opacity: 1; transform: none; color: #fff; background: #26385d; box-shadow: none; }
+@media (hover: hover) {
+  .preview-portfolio:hover .portfolio-ui-sheet { transform: rotate(0deg) translateY(-3px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-ui-sheet { transition: none; transform: none !important; }
+}
 .preview-receiper .visual-brand { top: 6%; left: 6%; right: 6%; }
 .receiper-wordmark { display: inline-flex; align-items: center; gap: 9px; font-size: 21px; font-weight: 700; letter-spacing: -.04em; }
 .receiper-wordmark img { display: block; width: 38px; height: 38px; border-radius: 10px; }
@@ -326,6 +340,7 @@ button,a,summary { outline-offset: 5px; }
 .project-viewer { --viewer-accent: #3159e8; --viewer-tint: #e8edf5; margin: 8px 24px 0; }
 .viewer-sanad { --viewer-accent: #35725a; --viewer-tint: #e5eee8; }
 .viewer-receiper { --viewer-accent: #174c37; --viewer-tint: #e6ecdf; }
+.viewer-portfolio { --viewer-accent: #26385d; --viewer-tint: #e4e9f3; }
 .viewer-invaro { --viewer-accent: #7060ad; --viewer-tint: #eeebf4; }
 .viewer-qabas { --viewer-accent: #286869; --viewer-tint: #e5eeed; }
 .viewer-window { overflow: hidden; border: 1px solid #dfe2e5; border-radius: 14px; background: #fff; box-shadow: 0 12px 35px #1c29350a, 0 2px 5px #1c293505; }
@@ -500,7 +515,7 @@ button,a,summary { outline-offset: 5px; }
   .gallery-intro > p { font-size: 12px; }
   .project-filters button { padding-inline: 12px; font-size: 11px; }
   .project-gallery { grid-template-columns: 1fr 1fr; gap: 46px 23px; }
-  .filter-all .card-invaro,.filter-all .card-sanad { margin-top: 44px; }
+  .filter-all .card-invaro,.filter-all .card-sanad,.filter-all .card-portfolio { margin-top: 44px; }
   .project-preview { aspect-ratio: 1.15; }
   .visual-brand { top: 16px; left: 16px; right: 16px; }
   .hassel-wordmark { font-size: 21px; gap: 7px; }
@@ -577,7 +592,7 @@ button,a,summary { outline-offset: 5px; }
   .gallery-intro > p { font-size: 14px; margin-bottom: 18px; }
   .project-filters button { padding-inline: 17px; font-size: 12px; }
   .project-gallery { grid-template-columns: 1fr; gap: 40px; }
-  .filter-all .card-invaro,.filter-all .card-sanad { margin-top: 0; }
+  .filter-all .card-invaro,.filter-all .card-sanad,.filter-all .card-portfolio { margin-top: 0; }
   .project-preview { border-radius: 17px; aspect-ratio: 1.28; }
   .card-invaro .project-preview { aspect-ratio: 1.14; }
   .card-sanad .project-preview { aspect-ratio: 1.23; }

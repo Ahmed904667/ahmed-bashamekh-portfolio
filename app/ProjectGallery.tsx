@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type PointerEvent, type CSSProperties } from "react";
 import { Icon } from "./Icons";
 
-type ProjectId = "hassel" | "invaro" | "qabas" | "sanad" | "receiper";
+type ProjectId = "hassel" | "invaro" | "qabas" | "sanad" | "receiper" | "portfolio";
 type Category = "all" | "products" | "websites";
 type Project = {
   id: ProjectId; name: string; label: string; category: Exclude<Category, "all">;
@@ -72,6 +72,19 @@ const projects: Project[] = [
     ],
     live: "https://receiper-production.up.railway.app/", domain: "receiper-production.up.railway.app",
   },
+  {
+    id: "portfolio", name: "Portfolio", label: "Design & development", category: "websites",
+    description: "A personal website designed and built to showcase my projects, experience, and approach to software engineering. A custom responsive interface pairs an animated avatar with filterable project galleries and detailed project overviews, making it easy to explore my work and get in touch.",
+    stack: ["Next.js", "React", "TypeScript", "CSS", "Canvas"],
+    features: [
+      "A custom responsive design brings selected projects, experience, education, and technical skills together in one place.",
+      "An animated avatar welcomes visitors, with canvas-based eye tracking that responds to the pointer.",
+      "Filter projects by product or website, then open detailed overviews with screenshots, features, and technology stacks.",
+      "Keyboard-accessible navigation and project dialogs, with reduced-motion support for animations.",
+      "Direct contact links, one-click email copying, and a downloadable CV make it easy to start a conversation.",
+    ],
+    live: "/#top", domain: "this portfolio",
+  },
 ];
 
 function HasselCardVideo({ active }: { active: boolean }) {
@@ -137,6 +150,13 @@ function HasselCardVideo({ active }: { active: boolean }) {
 }
 
 function ProjectVisual({ project, inDialog = false, active = false }: { project: Project; inDialog?: boolean; active?: boolean }) {
+  if (project.id === "portfolio") {
+    return <>
+      <div className="visual-brand"><span className="portfolio-wordmark"><Image src="/images/navbar-avatar.png" alt="" width={1254} height={1254} sizes="40px" />Portfolio</span><span className="live-badge"><i />Live website</span></div>
+      <div className="portfolio-ui-sheet"><Image src="/projects/portfolio-homepage.png" alt="Ahmed Bashamekh’s portfolio homepage with the Built with logic, Made for people headline and waving avatar" width={2880} height={1618} sizes="(max-width: 700px) 90vw, 45vw" /></div>
+      <span className="visual-caption">Designed & built from scratch</span>
+    </>;
+  }
   if (project.id === "receiper") {
     return <>
       <div className="visual-brand"><span className="receiper-wordmark"><Image src="/projects/receiper-logo.png" alt="" width={1254} height={1254} sizes="44px" />Receiper</span><span className="live-badge"><i />Live product</span></div>
@@ -207,6 +227,7 @@ const projectScreenshots = {
   hassel: hasselScreenshots,
   sanad: sanadScreenshots,
   receiper: [{ src: "/projects/receiper-mobile.png", alt: "Receiper mobile chat interface with receipt upload, spending prompts, and a message composer", label: "Receipt & expense chat", width: 1179, height: 2555 }],
+  portfolio: [{ src: "/projects/portfolio-homepage.png", alt: "Ahmed Bashamekh’s portfolio homepage showing navigation, introduction, animated avatar, and project and CV links", label: "Portfolio homepage", width: 2880, height: 1618 }],
   invaro: [{ src: "/projects/invaro-homepage-v2.png", alt: "Invaro event management homepage", label: "Homepage", width: 1669, height: 888 }],
   qabas: [
     { src: "/projects/qabas-new-ui.jpg", alt: "Qabas Marketing Agency company profile homepage", label: "Agency profile", width: 1905, height: 987 },
